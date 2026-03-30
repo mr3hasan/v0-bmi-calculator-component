@@ -8,6 +8,10 @@ interface AgeResult {
   months: number
   days: number
   totalDays: number
+  totalWeeks: number
+  totalHours: number
+  totalMinutes: number
+  totalSeconds: number
   nextBirthday: number
 }
 
@@ -30,9 +34,13 @@ function calculateAge(birthDate: Date): AgeResult {
     months += 12
   }
 
-  // Calculate total days
+  // Calculate total time units
   const timeDiff = today.getTime() - birth.getTime()
+  const totalSeconds = Math.floor(timeDiff / 1000)
+  const totalMinutes = Math.floor(timeDiff / (1000 * 60))
+  const totalHours = Math.floor(timeDiff / (1000 * 60 * 60))
   const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+  const totalWeeks = Math.floor(totalDays / 7)
 
   // Calculate days until next birthday
   const nextBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate())
@@ -46,6 +54,10 @@ function calculateAge(birthDate: Date): AgeResult {
     months,
     days,
     totalDays,
+    totalWeeks,
+    totalHours,
+    totalMinutes,
+    totalSeconds,
     nextBirthday: daysUntilBirthday,
   }
 }
@@ -180,61 +192,69 @@ export function AgeCalculator() {
               <ResultCard value={result.days} label="Days" color="#F97316" delay={200} />
             </div>
 
-            {/* Additional Info */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-primary"
-                    >
-                      <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                      <line x1="16" x2="16" y1="2" y2="6" />
-                      <line x1="8" x2="8" y1="2" y2="6" />
-                      <line x1="3" x2="21" y1="10" y2="10" />
-                    </svg>
-                  </div>
-                  <span className="text-sm text-muted-foreground">Total Days Lived</span>
-                </div>
-                <span className="text-lg font-bold text-foreground">
+            {/* Detailed Stats Grid */}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="flex items-center justify-between p-3 bg-muted/30 rounded-xl border border-border/50">
+                <span className="text-xs text-muted-foreground">Total Weeks</span>
+                <span className="text-sm font-bold text-foreground">
+                  {result.totalWeeks.toLocaleString()}
+                </span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-muted/30 rounded-xl border border-border/50">
+                <span className="text-xs text-muted-foreground">Total Days</span>
+                <span className="text-sm font-bold text-foreground">
                   {result.totalDays.toLocaleString()}
                 </span>
               </div>
-
-              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-primary"
-                    >
-                      <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z" />
-                      <path d="M10 2c1 .5 2 2 2 5" />
-                    </svg>
-                  </div>
-                  <span className="text-sm text-muted-foreground">Next Birthday In</span>
-                </div>
-                <span className="text-lg font-bold text-foreground">
-                  {result.nextBirthday === 0 ? "Today!" : `${result.nextBirthday} days`}
+              <div className="flex items-center justify-between p-3 bg-muted/30 rounded-xl border border-border/50">
+                <span className="text-xs text-muted-foreground">Total Hours</span>
+                <span className="text-sm font-bold text-foreground">
+                  {result.totalHours.toLocaleString()}
                 </span>
               </div>
+              <div className="flex items-center justify-between p-3 bg-muted/30 rounded-xl border border-border/50">
+                <span className="text-xs text-muted-foreground">Total Minutes</span>
+                <span className="text-sm font-bold text-foreground">
+                  {result.totalMinutes.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            {/* Seconds Counter */}
+            <div className="p-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20 mb-4">
+              <div className="text-center">
+                <span className="text-xs text-muted-foreground block mb-1">Total Seconds Lived</span>
+                <span className="text-2xl font-bold text-primary">
+                  {result.totalSeconds.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            {/* Next Birthday */}
+            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-primary"
+                  >
+                    <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z" />
+                    <path d="M10 2c1 .5 2 2 2 5" />
+                  </svg>
+                </div>
+                <span className="text-sm text-muted-foreground">Next Birthday In</span>
+              </div>
+              <span className="text-lg font-bold text-foreground">
+                {result.nextBirthday === 0 ? "Today!" : `${result.nextBirthday} days`}
+              </span>
             </div>
 
             {/* Summary */}
