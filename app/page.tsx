@@ -1,5 +1,5 @@
-import { BMICalculator } from "@/components/bmi-calculator"
+import { CalculatorApp } from "@/components/calculator-app"
 
 export default function Page() {
-  return <BMICalculator />
+  return <CalculatorApp />
 }

@@ -7,15 +7,15 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'BMI Calculator',
-  description: 'Calculate your Body Mass Index with our interactive BMI Calculator',
+  title: 'BMI & Age Calculator',
+  description: 'Calculate your Body Mass Index and exact age with our interactive calculators',
   generator: 'v0.app',
   manifest: '/manifest.json',
   themeColor: '#10b981',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'BMI Calculator',
+    title: 'Health Calculator',
   },
   formatDetection: {
     telephone: false,

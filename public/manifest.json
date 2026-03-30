@@ -1,7 +1,7 @@
 {
-  "name": "BMI Calculator",
-  "short_name": "BMI Calc",
-  "description": "Calculate your Body Mass Index with our interactive BMI Calculator",
+  "name": "BMI & Age Calculator",
+  "short_name": "Health Calc",
+  "description": "Calculate your Body Mass Index and exact age with our interactive calculators",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
