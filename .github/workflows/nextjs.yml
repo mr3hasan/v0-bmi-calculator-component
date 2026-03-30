@@ -25,10 +25,9 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Show build output
-        run: |
-          echo "=== Root files ==="
-          ls -la
-          echo "=== HTML files ==="
-          find . -name "*.html" -not -path "*/node_modules/*" | head -20
-          echo "=== Build folders =
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: .next/
+          retention-days: 7
