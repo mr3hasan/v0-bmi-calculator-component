@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   title: 'BMI Calculator',
   description: 'Calculate your Body Mass Index with our interactive BMI Calculator',
   generator: 'v0.app',
+  manifest: '/manifest.json',
+  themeColor: '#10b981',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'BMI Calculator',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   icons: {
     icon: [
       {
@@ -25,7 +35,7 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/icons/icon-192x192.png',
   },
 }
 
