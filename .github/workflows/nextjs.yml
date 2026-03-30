@@ -25,12 +25,11 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Debug - find next folder
-        run: find /home/runner/work -name ".next" -type d 2>/dev/null
-
       - name: Upload build output
         uses: actions/upload-artifact@v4
         with:
           name: build-output
-          path: .next/
+          path: |
+            .next
+          if-no-files-found: warn
           retention-days: 7
