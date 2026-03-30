@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
+import { useServiceWorker } from "@/hooks/use-service-worker"
 
 interface BMIResult {
   value: number
@@ -152,6 +153,8 @@ function CircularGauge({
 }
 
 export function BMICalculator() {
+  useServiceWorker()
+  
   const [age, setAge] = useState<string>("")
   const [gender, setGender] = useState<"male" | "female">("male")
   const [feet, setFeet] = useState<string>("")
